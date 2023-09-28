@@ -148,6 +148,13 @@ To overwrite a variable from a variable set, [create a new workspace-specific va
 
 Variables within a variable set can also automatically overwrite variables with the same key in other variable sets applied to the same workspace. Though variable sets are created for the organization, these overwrites occur within each workspace. Refer to [variable precedence](/terraform/cloud-docs/workspaces/variables#precedence) for more details.
 
+## Priority Variable Sets
+
+You can select to prioritize variable values from a variable set over any other variables with the same key set at more specific scopes. Variables from prioritized variable sets will also overwrite variables with the same key that are set from the command line, `.*auto.tfvars` files, and `terraform.tfvars` files.
+
+The only variable values that a prioritized variable set cannot overwrite are variables with values set directly in the terraform configuration itself. If you want to fully ensure the values of variables including values in your terraform configuration code, we recommend using a Policy Check or Run Task.
+Refer to [variable precedence](/terraform/cloud-docs/workspaces/variables#precedence-with-priority-variable-sets) for more details.
+
 ## Variable Values and Format
 
 The limits, allowable values, and required format are the same for both workspace-specific variables and variable sets.

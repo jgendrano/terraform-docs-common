@@ -152,3 +152,25 @@ When you trigger a run through the command line, Terraform Cloud applies the fol
 - **C_Variable_Set:** `KEY2`. For this run, `KEY2` equals `c`. This is a global variable set with no overwritten values.
 
 ![An example scenario demonstrating variable precedence in Terraform Cloud](/img/docs/variable-precedence-example.png)
+
+
+## Precedence with Priority Variable Sets
+
+You can select to prioritize the values of variables in a variable set.
+When a variable set is prioritized the values take precedence over any variables with the same key set at a more specific scope.
+
+* A project scope is more specific than a global scope.
+* A workspace variable set scope is more specific than a project scope.
+* A workspace variable scope is more specific than a workspace variable set scope.
+* A variable set on the command line a more specific scope than a workspace variable.
+
+Therefore a prioritized global variable set variable takes precedence over even a variable set by a command line argument.
+
+A variable from a prioritized global variable set takes precedence over any variables set by any of the methods above except for
+those with values set directly in the terraform configuration code itself.
+
+If two prioritized variable sets include the same variable key, precedence is determined by the alphabetical order of the variable sets' names.
+
+The only variable that a prioritized variable set variable cannot overwrite is one with a value set directly in the terraform
+configuration code itself. If you want to ensure what a variable value is including the terraform configuration code itself,
+we recommend using a Policy Check or Run Task.
